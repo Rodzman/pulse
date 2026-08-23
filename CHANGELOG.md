@@ -6,6 +6,10 @@ write good commit messages; don't edit this file directly.
 
 ## [Unreleased]
 
+### Added
+
+- ship pulse.example.toml template instead of checked-in pulse.toml
+
 ### CI
 
 - auto-update CHANGELOG.md via git-cliff
@@ -13,9 +17,12 @@ write good commit messages; don't edit this file directly.
 ### Fixed
 
 - preserve newlines in changelog template
+- smoke-test against local server instead of example.com
+- hermetic smoke test; validate example config
 
 ### Miscellaneous
 
+- update CHANGELOG.md [skip ci]
 - update CHANGELOG.md [skip ci]
 
 ## [v0.1.0] - 2026-08-23
