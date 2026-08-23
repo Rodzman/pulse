@@ -9,6 +9,7 @@ write good commit messages; don't edit this file directly.
 ### Added
 
 - ship pulse.example.toml template instead of checked-in pulse.toml
+- retries with jittered backoff + TLS certificate-expiry checks
 
 ### CI
 
@@ -22,6 +23,7 @@ write good commit messages; don't edit this file directly.
 
 ### Miscellaneous
 
+- update CHANGELOG.md [skip ci]
 - update CHANGELOG.md [skip ci]
 - update CHANGELOG.md [skip ci]
 
