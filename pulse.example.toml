@@ -31,3 +31,15 @@ expect_keyword = "current_user_url"
 #name           = "latency-budget"
 #url            = "https://example.com/"
 #max_latency_ms = 800
+
+[[endpoints]]
+name            = "resilient-api"
+url             = "https://api.github.com/"
+expect_status   = 200
+retries         = 2          # retry timeouts / 5xx / 429 twice
+backoff_seconds = 1.0        # 1s → 2s → 4s… +jitter, max 30s
+
+[[endpoints]]
+name          = "cert-watch"
+url           = "https://example.com/"
+tls_warn_days = 14           # warn under 14 days left, fail when expired
