@@ -1,15 +1,41 @@
 name: ci
-on: [push, pull_request]
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false # one bad Python version no longer cancels the others
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
-      - run: python -m unittest -v test_pulse.py
-      - run: python pulse.py -c pulse.toml && echo "all endpoints healthy"
+
+      - name: Unit tests
+        run: python -m unittest -v test_pulse.py
+
+      - name: Validate example config parses
+        run: python -c "from pulse import load_config; load_config('pulse.toml')"
+
+      - name: Smoke test against a local server (hermetic)
+        run: |
+          mkdir -p /tmp/smoke-site
+          printf 'ok' > /tmp/smoke-site/healthz
+          python3 -m http.server 8123 --bind 127.0.0.1 --directory /tmp/smoke-site &
+          sleep 1
+          cat > /tmp/smoke.toml <<'EOF'
+          [[endpoints]]
+          name           = "local-healthz"
+          url            = "http://127.0.0.1:8123/healthz"
+          expect_status  = 200
+          expect_keyword = "ok"
+          max_latency_ms = 2000
+          EOF
+          python3 pulse.py -c /tmp/smoke.toml && echo "smoke test passed"
