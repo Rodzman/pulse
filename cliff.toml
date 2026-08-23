@@ -9,21 +9,21 @@ This file is auto-generated from [Conventional Commits](https://www.conventional
 write good commit messages; don't edit this file directly.
 """
 body = """
-{% if version %}\
-## [{{ version }}] - {{ timestamp | date(format="%Y-%m-%d") }}
-{% else %}\
-## [Unreleased]
-{% endif %}\
-{% for group, commits in commits | group_by(attribute="group") %}\
-
-### {{ group }}
-
-{% for commit in commits %}\
-- {{ commit.message | split(pat="\n") | first | trim_end }}\
-{% endfor %}\
-
-{% endfor %}\
+{% set nl = "\n" -%}
+{% if version -%}
+{{ nl }}## [{{ version }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else -%}
+{{ nl }}## [Unreleased]
+{%- endif -%}
+{%- for group, commits in commits | group_by(attribute="group") -%}
+{{ nl }}{{ nl }}### {{ group }}{{ nl }}
+{%- for commit in commits -%}
+{{ nl }}- {{ commit.message | split(pat="\n") | first | trim_end }}
+{%- endfor -%}
+{%- endfor -%}
+{{ nl }}
 """
+
 footer = ""
 
 [git]
