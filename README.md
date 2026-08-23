@@ -48,14 +48,17 @@ Top-level keys in `pulse.toml`:
 
 Each endpoint gets an `[[endpoints]]` block:
 
-| Option            | Default  | Description                                     |
-| ----------------- | -------- | ----------------------------------------------- |
-| `url`             | —        | Endpoint URL (**required**)                     |
-| `name`            | `url`    | Display name                                    |
-| `expect_status`   | `200`    | Expected HTTP status code                       |
-| `expect_keyword`  | _(none)_ | Substring that must appear in the response body |
-| `max_latency_ms`  | _(none)_ | Fail if response takes longer than this         |
-| `timeout_seconds` | `5`      | Per-request timeout                             |
+| Option            | Default  | Description                                                            |
+| ----------------- | -------- | ---------------------------------------------------------------------- |
+| `url`             | —        | Endpoint URL (**required**)                                            |
+| `name`            | `url`    | Display name                                                           |
+| `expect_status`   | `200`    | Expected HTTP status code                                              |
+| `expect_keyword`  | _(none)_ | Substring that must appear in the response body                        |
+| `max_latency_ms`  | _(none)_ | Fail if response takes longer than this                                |
+| `timeout_seconds` | `5`      | Per-request timeout                                                    |
+| `retries`         | `0`      | Extra attempts for transient failures (timeouts, conn errors, 5xx/429) |
+| `backoff_seconds` | `1.0`    | Base backoff between retries; exponential, jittered, capped at 30 s    |
+| `tls_warn_days`   | _(none)_ | Warn when HTTPS cert expires within N days; **fail** once expired      |
 
 A check passes only if **all** configured assertions hold.
 
