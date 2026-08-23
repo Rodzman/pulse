@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false # one bad Python version no longer cancels the others
+      fail-fast: false
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
     steps:
@@ -22,7 +22,7 @@ jobs:
         run: python -m unittest -v test_pulse.py
 
       - name: Validate example config parses
-        run: python -c "from pulse import load_config; load_config('pulse.toml')"
+        run: python -c "from pulse import load_config; load_config('pulse.example.toml')"
 
       - name: Smoke test against a local server (hermetic)
         run: |
