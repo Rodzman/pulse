@@ -31,12 +31,11 @@ Python **3.11+** (uses the built-in `tomllib`). That's it.
 
 ```bash
 git clone https://github.com/Rodzman/pulse.git && cd pulse
-python3 pulse.py            # run every check once
-python3 pulse.py --loop     # monitor continuously (interval from config)
-python3 pulse.py --json     # machine-readable output
+cp pulse.example.toml pulse.toml   # create your own config, then edit it
+python3 pulse.py                   # run every check once
+python3 pulse.py --loop            # monitor continuously (interval from config)
+python3 pulse.py --json            # machine-readable output
 ```
-
-Edit `pulse.toml` to point at your own endpoints.
 
 ## Configuration
 
@@ -59,6 +58,8 @@ Each endpoint gets an `[[endpoints]]` block:
 | `timeout_seconds` | `5`      | Per-request timeout                             |
 
 A check passes only if **all** configured assertions hold.
+
+Your `pulse.toml` is git-ignored, so your endpoint list stays private.
 
 ## Exit codes
 

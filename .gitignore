@@ -1,0 +1,6 @@
+# Real configs may contain private hosts & webhook URLs — keep them local
+pulse.toml
+
+# Python
+__pycache__/
+*.py[cod]

@@ -1,0 +1,33 @@
+# pulse example configuration
+#
+# Get started:
+#     cp pulse.example.toml pulse.toml
+#
+# Your real pulse.toml is git-ignored, so private hostnames and
+# webhook URLs never end up in the repository.
+
+# Seconds between rounds in --loop mode
+interval = 60
+
+# Optional: POST a JSON failure summary here when any check fails.
+# Slack and Discord incoming webhooks work as-is.
+webhook_url = ""
+
+[[endpoints]]
+name            = "website"
+url             = "https://example.com/"
+expect_status   = 200            # default; omit unless you expect something else
+timeout_seconds = 5              # default
+
+# Catch the "returns 200 but shows an error page" failure mode:
+[[endpoints]]
+name           = "api-check"
+url            = "https://api.github.com/"
+expect_status  = 200
+expect_keyword = "current_user_url"
+
+# Fail an endpoint that responds correctly but too slowly:
+#[[endpoints]]
+#name           = "latency-budget"
+#url            = "https://example.com/"
+#max_latency_ms = 800

@@ -91,7 +91,10 @@ def load_config(path: str) -> dict:
         with open(path, "rb") as fh:
             return tomllib.load(fh)
     except FileNotFoundError:
-        sys.exit(f"error: config file not found: {path}")
+        sys.exit(
+            f"error: config file not found: {path}\n"
+            f"hint: copy the example config to get started:  cp pulse.example.toml {path}"
+        )
     except tomllib.TOMLDecodeError as exc:
         sys.exit(f"error: invalid TOML in {path}: {exc}")
 
