@@ -1,0 +1,20 @@
+interval    = 60     # seconds between rounds in --loop mode
+webhook_url = ""     # optional: gets a JSON failure summary POSTed
+
+[[endpoints]]
+name            = "website"
+url             = "https://example.com/"
+expect_status   = 200
+timeout_seconds = 5
+
+[[endpoints]]
+name           = "api-health"
+url            = "https://api.example.com/healthz"
+expect_status  = 200
+expect_keyword = "ok"
+max_latency_ms = 800
+
+[[endpoints]]
+name          = "legacy-redirect"
+url           = "https://example.com/old"
+expect_status = 301
