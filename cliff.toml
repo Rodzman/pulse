@@ -1,0 +1,49 @@
+# git-cliff configuration — https://git-cliff.org/docs/configuration
+
+[changelog]
+trim = true
+header = """# Changelog
+
+All notable changes to **pulse** will be documented in this file.
+This file is auto-generated from [Conventional Commits](https://www.conventionalcommits.org) —
+write good commit messages; don't edit this file directly.
+"""
+body = """
+{% if version %}\
+## [{{ version }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else %}\
+## [Unreleased]
+{% endif %}\
+{% for group, commits in commits | group_by(attribute="group") %}\
+
+### {{ group }}
+
+{% for commit in commits %}\
+- {{ commit.message | split(pat="\n") | first | trim_end }}\
+{% endfor %}\
+
+{% endfor %}\
+"""
+footer = ""
+
+[git]
+conventional_commits = true
+filter_unconventional = false      # older non-conventional commits still show up
+split_commits = false
+protect_breaking_commits = true
+tag_pattern = "v[0-9].*"           # sections split at vX.Y.Z tags
+sort_commits = "oldest"
+
+commit_parsers = [
+  { message = "^feat", group = "Added" },
+  { message = "^fix", group = "Fixed" },
+  { message = "^perf", group = "Changed" },
+  { message = "^refactor", group = "Changed" },
+  { message = "^doc", group = "Documentation" },
+  { message = "^test", group = "Tests" },
+  { message = "^style", group = "Styling" },
+  { message = "^ci", group = "CI" },
+  { message = "^chore\\(release\\)", skip = true },
+  { message = "^chore", group = "Miscellaneous" },
+  { message = ".*", group = "Other" },   # catch-all so nothing silently vanishes
+]
