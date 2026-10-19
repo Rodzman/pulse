@@ -16,6 +16,10 @@ write good commit messages; don't edit this file directly.
 
 - auto-update CHANGELOG.md via git-cliff
 
+### Documentation
+
+- mark TLS expiry checks as shipped in the roadmap
+
 ### Fixed
 
 - preserve newlines in changelog template
@@ -24,6 +28,7 @@ write good commit messages; don't edit this file directly.
 
 ### Miscellaneous
 
+- update CHANGELOG.md [skip ci]
 - update CHANGELOG.md [skip ci]
 - update CHANGELOG.md [skip ci]
 - update CHANGELOG.md [skip ci]
