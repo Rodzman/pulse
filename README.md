@@ -119,7 +119,7 @@ python3 -m unittest -v        # run the test suite
 
 ## Roadmap
 
-See [`CHANGELOG.md`](CHANGELOG.md) — up next: TLS certificate-expiry warnings, SQLite history, Prometheus `/metrics` exporter.
+TLS certificate-expiry warnings have shipped (see `tls_warn_days` above). Up next: SQLite history and a Prometheus `/metrics` exporter. See [`CHANGELOG.md`](CHANGELOG.md) for what has changed so far.
 
 ## License
 
